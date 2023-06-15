@@ -1,0 +1,26 @@
+name: Hourly Web Scraping
+
+on:
+  schedule:
+    - cron: "60* * * *"
+
+jobs:
+  scrape:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: amazon-bestSellerRank
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: "3.1"
+
+      - name: Install dependencies
+        run: |
+          pip install requests beautifulsoup4 mysql-connector-python --upgrade --quiet
+
+      - name: Run web scraping script
+        run: |
+          python Amazon bestsellerRank Webscraping code.ipynb  # Replace 'main.py' with the filename of your main scraping script
