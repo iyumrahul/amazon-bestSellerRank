@@ -15,4 +15,4 @@ run: |
 python scrape.py
 - name: Insert data to SQL
 run: |
-mysql -h 35.200.229.177 -u analyticsuser -p PI-fZOdeMu0fiG| -d analytics -e "INSERT INTO henloAmazonRank (timestamp, product_title, bestSellerRank) VALUES (${timestamp}, ${product_title}, best seller rank);
+mysql -h 35.200.229.177 -u analyticsuser -p PI-fZOdeMu0fiG| -d analytics -e "INSERT INTO henloAmazonRank (timestamp, product_title, bestSellerRank) VALUES (${timestamp}, ${product_title}, ${best_seller_rank});"
