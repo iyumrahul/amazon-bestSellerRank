@@ -23,4 +23,4 @@ jobs:
 
       - name: Run web scraping script
         run: |
-          python Amazon bestsellerRank Webscraping code.ipynb  # Replace 'main.py' with the filename of your main scraping script
+          python Amazon bestsellerRank Webscraping code.ipynb 
