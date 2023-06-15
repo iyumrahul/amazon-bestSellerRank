@@ -1,26 +1,18 @@
-name: Hourly Web Scraping
-
+name: Scrape Amazon Best Seller Rank
 on:
-  schedule:
-    - cron: "0* * * *"
-
+schedule:
+- cron: '0 * * * '
 jobs:
-  scrape:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: amazon-bestSellerRank
-        uses: actions/checkout@v2
-
-      - name: Set up Python
-        uses: actions/setup-python@v2
-        with:
-          python-version: "3.1"
-
-      - name: Install dependencies
-        run: |
-          pip install requests beautifulsoup4 mysql-connector-python --upgrade --quiet
-
-      - name: Run web scraping script
-        run: |
-          python Amazon bestsellerRank Webscraping code.ipynb 
+scrape:
+runs-on: ubuntu-latest
+steps:
+- uses: actions/checkout@v2
+- name: Install dependencies
+run: |
+pip install requests beautifulsoup4 mysql-connector-python
+- name: Scrape Amazon
+run: |
+python scrape.py
+- name: Insert data to SQL
+run: |
+mysql -h 35.200.229.177 -u analyticsuser -p PI-fZOdeMu0fiG| -d analytics -e "INSERT INTO henloAmazonRank (timestamp, products, bestSellerRank) VALUES (%s, %s, %s);" "timestamp","{product_title}", "${best_seller_rank}"
