@@ -25,4 +25,4 @@ jobs:
           pip install requests beautifulsoup4 mysql-connector-python
 
       - name: Run scraping script
-        run: Webscraping code.py
+        run: Webscraping code.ipynb
