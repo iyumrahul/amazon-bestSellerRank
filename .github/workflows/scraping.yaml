@@ -1,20 +1,32 @@
 name: Scrape Amazon Best Seller Rank
+
 on:
   schedule:
     - cron: '0 * * * *'
+
 jobs:
   scrape:
     runs-on: ubuntu-latest
+
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
       - name: Install dependencies
         run: |
           pip install requests beautifulsoup4 mysql-connector-python
+
       - name: Scrape Amazon
         run: |
           python scrape.py
+
       - name: Insert data to SQL
+        env:
+          MYSQL_HOST: 35.200.229.177
+          MYSQL_USER: analyticsuser
+          MYSQL_PASSWORD: PI-fZOdeMu*0fiG
+          MYSQL_DATABASE: analytics
         run: |
-          mysql -h 35.200.229.177 -u analyticsuser -p PI-fZOdeMu*0fiG -d analytics -e "
+          mysql -h $MYSQL_HOST -u $MYSQL_USER -p$MYSQL_PASSWORD -D $MYSQL_DATABASE -e "
             INSERT INTO henloAmazonRank (timestamp, product_title, bestSellerRank)
-            VALUES ('${timestamp}', '${product_title}', '${best_seller_rank}');"
+            VALUES ('$timestamp', '$product_title', '$best_seller_rank');"
