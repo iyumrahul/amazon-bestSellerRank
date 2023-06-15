@@ -1,0 +1,28 @@
+name: scrape.yml
+
+on:
+  push:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 ****'
+
+jobs:
+  scheduled:
+    runs_on: ubuntu_latest
+
+    steps:
+      - name: Check out this repo
+        uses: actions/checkout@v2
+
+      - name: Set up Python environment
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.1
+
+      - name: Install requests, beautifulsoup4, and mysql-connector-python libraries
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests beautifulsoup4 mysql-connector-python
+
+      - name: Run scraping script
+        run: Webscraping code.py
